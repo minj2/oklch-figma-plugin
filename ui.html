@@ -2,16 +2,60 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>OKLCH Color Picker</title>
+  <title>OKLCH Color Converter</title>
+  <script src="https://cdn.jsdelivr.net/npm/culori"></script>
+  <style>
+    body { font-family: sans-serif; padding: 16px; }
+    input, button { padding: 8px; margin: 8px 0; width: 100%; }
+    .color-preview { width: 100%; height: 50px; border-radius: 6px; margin-top: 8px; border: 1px solid #ccc; }
+    .output { margin-top: 8px; word-break: break-all; }
+  </style>
 </head>
 <body>
-  <h2>OKLCH Color Picker</h2>
-  <input type="text" id="oklchInput" placeholder="Enter OKLCH value" />
-  <button onclick="convertColor()">Convert</button>
+  <h3>🎨 Color Converter</h3>
+  <input id="colorInput" placeholder="Paste HEX / RGB / HSL / OKLCH" />
+  <button onclick="convertToOKLCH()">Convert to OKLCH</button>
+  <button onclick="convertToHEX()">Convert to HEX</button>
+  <div class="color-preview" id="previewBox"></div>
+  <div class="output" id="resultBox"></div>
+  <button onclick="copyResult()">📋 Copy Result</button>
+
   <script>
-    function convertColor() {
-      const value = document.getElementById('oklchInput').value;
-      parent.postMessage({ pluginMessage: { type: 'convert-color', value } }, '*');
+    function convertToOKLCH() {
+      const input = document.getElementById('colorInput').value.trim();
+      const parsed = culori.parse(input);
+      const oklch = culori.oklch(parsed);
+      if (oklch) {
+        const result = `oklch(${oklch.l.toFixed(3)} ${oklch.c.toFixed(3)} ${Math.round(oklch.h)} / ${Math.round((oklch.alpha ?? 1) * 100)}%)`;
+        updateUI(result, culori.formatHex(parsed));
+      } else {
+        updateUI("Invalid color input", null);
+      }
+    }
+
+    function convertToHEX() {
+      const input = document.getElementById('colorInput').value.trim();
+      const parsed = culori.parse(input);
+      if (parsed) {
+        const hex = culori.formatHex(parsed);
+        updateUI(hex, hex);
+      } else {
+        updateUI("Invalid color input", null);
+      }
+    }
+
+    function updateUI(text, hex) {
+      document.getElementById('resultBox').innerText = text;
+      if (hex) {
+        document.getElementById('previewBox').style.backgroundColor = hex;
+      } else {
+        document.getElementById('previewBox').style.backgroundColor = 'transparent';
+      }
+    }
+
+    function copyResult() {
+      const text = document.getElementById('resultBox').innerText;
+      navigator.clipboard.writeText(text).then(() => alert("Copied!"));
     }
   </script>
 </body>

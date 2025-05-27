@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>OKLCH Color Picker</title>
+</head>
+<body>
+  <h2>OKLCH Color Picker</h2>
+  <input type="text" id="oklchInput" placeholder="Enter OKLCH value" />
+  <button onclick="convertColor()">Convert</button>
+  <script>
+    function convertColor() {
+      const value = document.getElementById('oklchInput').value;
+      parent.postMessage({ pluginMessage: { type: 'convert-color', value } }, '*');
+    }
+  </script>
+</body>
+</html>

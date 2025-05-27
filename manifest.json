@@ -1,0 +1,8 @@
+{
+  "name": "OKLCH Color Picker & Converter",
+  "id": "oklch-color-picker",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"]
+}

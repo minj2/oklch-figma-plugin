@@ -1,0 +1,11 @@
+{
+  "name": "oklch-figma-plugin",
+  "version": "1.0.0",
+  "description": "A Figma plugin for OKLCH color conversion",
+  "main": "code.js",
+  "scripts": {
+    "build": "echo 'No build needed'"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

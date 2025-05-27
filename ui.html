@@ -5,19 +5,63 @@
   <title>OKLCH Color Converter</title>
   <script src="https://cdn.jsdelivr.net/npm/culori"></script>
   <style>
-    body { font-family: sans-serif; padding: 16px; }
-    input, button { padding: 8px; margin: 8px 0; width: 100%; }
-    .color-preview { width: 100%; height: 50px; border-radius: 6px; margin-top: 8px; border: 1px solid #ccc; }
-    .output { margin-top: 8px; word-break: break-all; }
+    body {
+      font-family: Inter, sans-serif;
+      padding: 20px;
+      background: #f8fafc;
+      color: #111;
+    }
+    h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    input {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border: none;
+      background-color: #6366f1;
+      color: white;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4f46e5;
+    }
+    .color-preview {
+      width: 100%;
+      height: 48px;
+      border-radius: 6px;
+      margin-top: 12px;
+      border: 1px solid #ccc;
+    }
+    .output {
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px;
+      font-family: monospace;
+      font-size: 13px;
+      word-break: break-word;
+    }
   </style>
 </head>
 <body>
-  <h3>🎨 Color Converter</h3>
+  <h3>🎨 OKLCH Color Converter</h3>
   <input id="colorInput" placeholder="Paste HEX / RGB / HSL / OKLCH" />
   <button onclick="convertToOKLCH()">Convert to OKLCH</button>
   <button onclick="convertToHEX()">Convert to HEX</button>
   <div class="color-preview" id="previewBox"></div>
-  <div class="output" id="resultBox"></div>
+  <div class="output" id="resultBox">Result will appear here</div>
   <button onclick="copyResult()">📋 Copy Result</button>
 
   <script>
@@ -46,11 +90,7 @@
 
     function updateUI(text, hex) {
       document.getElementById('resultBox').innerText = text;
-      if (hex) {
-        document.getElementById('previewBox').style.backgroundColor = hex;
-      } else {
-        document.getElementById('previewBox').style.backgroundColor = 'transparent';
-      }
+      document.getElementById('previewBox').style.backgroundColor = hex || 'transparent';
     }
 
     function copyResult() {
